@@ -1,0 +1,397 @@
+/* ==========================================================
+   SAUNDARYA SAVANT: PORTFOLIO
+   Contents:
+   1. Tokens   2. Base   3. Header   4. Shared section layout
+   5. Opening  6. Introduction   7. Range   8. Audience
+   9. Build    10. Close   11. Motion   12. Mobile / desktop
+   ========================================================== */
+
+/* 1. TOKENS ------------------------------------------------ */
+:root {
+  --paper: #F2EEE6;
+  --ink: #15130F;
+  --text-2: #5C564C;
+  --accent: #C8321E;
+
+  --font-display: "Newsreader", Georgia, serif;
+  --font-hindi: "Tiro Devanagari Hindi", "Noto Serif Devanagari", serif;
+  --font-body: "Hanken Grotesk", system-ui, sans-serif;
+  --font-label: "IBM Plex Mono", ui-monospace, monospace;
+
+  --fs-hero: clamp(3.5rem, 13vw, 12rem);
+  --fs-discipline: clamp(2.5rem, 7vw, 6rem);
+  --fs-statement: clamp(1.6rem, 3.2vw, 3rem);
+  --fs-title: clamp(1.75rem, 3vw, 2.5rem);
+  --fs-body: 1.0625rem;
+  --fs-label: 0.75rem;
+
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 40px;
+  --space-5: 64px;
+  --space-6: 104px;
+  --space-7: 168px;
+
+  --section-gap: var(--space-6);
+  --gutter: var(--space-3);
+  --ease: cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+
+/* 2. BASE -------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+}
+h1, h2, h3, p, ul, dl, dd { margin: 0; padding: 0; }
+ul { list-style: none; }
+[lang="hi"] { font-family: var(--font-hindi); }
+small { font-size: inherit; }
+
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.skip-link {
+  position: absolute; left: var(--space-2); top: -100px;
+  background: var(--ink); color: var(--paper); padding: var(--space-1) var(--space-2);
+  transition: top 150ms var(--ease);
+}
+.skip-link:focus { top: var(--space-2); }
+
+.label, .section__label {
+  font-family: var(--font-label);
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+/* 3. HEADER ------------------------------------------------ */
+.site-header {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  padding: var(--space-2) var(--gutter);
+  background: var(--paper);
+  border-bottom: 1px solid var(--ink);
+  font-size: 0.9375rem;
+}
+.site-header__name { font-family: var(--font-display); font-size: 1.125rem; }
+.site-nav { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-3); }
+
+/* Underline draws in from the left on hover */
+.site-nav a, .close__link {
+  background: linear-gradient(var(--accent), var(--accent)) no-repeat 0 100% / 0 2px;
+  transition: background-size 220ms var(--ease);
+}
+.site-nav a { padding: 12px 0; }
+.site-nav a:focus-visible, .close__link:focus-visible { background-size: 100% 2px; }   /* keyboard gets the same cue as hover */
+
+/* 4. SHARED SECTION LAYOUT ---------------------------------- */
+.section__inner, .opening__inner {
+  max-width: 1320px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.section { padding-block: var(--section-gap); }
+.section__inner { display: grid; gap: var(--space-2); }
+.section__body { display: grid; gap: var(--space-3); max-width: 62ch; }
+.section__title { font-family: var(--font-display); font-weight: 400; font-size: var(--fs-title); line-height: 1.15; }
+
+/* 5. OPENING (HERO) --------------------------------------- */
+/* Structure: label / name / rule / tagline + facts. Vertical "spotlight" list sits on the right edge. */
+.opening { padding-block: 0 var(--space-5); }
+.opening__inner {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  min-height: calc(100svh - 58px);
+}
+.opening__label { padding-top: var(--space-3); }
+
+/* Name */
+.opening__name { position: relative; align-self: center; padding-block: var(--space-4); }
+.opening__title {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: 13vw; line-height: 0.88; letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.opening__line { display: block; overflow: hidden; padding: 0.04em 0.12em 0.04em 0; }
+.opening__line > span { display: block; }
+.opening__line--second { margin-left: 12%; font-style: italic; }   /* asymmetry + change of emphasis */
+.seal {
+  position: absolute; right: 0; bottom: var(--space-4);
+  width: 56px; height: 56px; border-radius: 50%;
+  display: grid; place-items: center;
+  border: 2px solid var(--accent); color: var(--accent);
+  font-family: var(--font-display); font-size: 1.125rem; letter-spacing: 0.04em;
+  transform: rotate(-8deg);
+}
+
+/* Rule */
+.opening__rule { display: block; height: 1px; background: var(--ink); transform-origin: left; }
+
+/* Tagline + facts */
+.opening__foot { display: grid; gap: var(--space-3); padding-top: var(--space-3); }
+.opening__tagline { font-family: var(--font-display); font-size: clamp(1.25rem, 2vw, 1.75rem); line-height: 1.3; max-width: 26ch; }
+.opening__tagline [lang="hi"] { margin-top: 4px; font-size: 0.9em; color: var(--text-2); }
+.opening__facts div { display: flex; justify-content: space-between; gap: var(--space-2); padding-block: 10px; border-top: 1px solid var(--ink); }
+.opening__facts dt { font-family: var(--font-label); font-size: var(--fs-label); letter-spacing: 0.04em; color: var(--text-2); }
+.opening__facts dd { font-size: 1rem; }
+
+/* Vertical spotlight list: reads upward, Fight to Build */
+.opening__spot {
+  position: absolute; right: 4px; top: 50%;
+  display: flex; gap: var(--space-3);
+  writing-mode: vertical-rl; transform: translateY(-50%) rotate(180deg);
+  font-family: var(--font-label); font-size: var(--fs-label); letter-spacing: 0.2em; text-transform: uppercase;
+}
+.opening__spot li { color: var(--ink); }
+
+/* Hero motion: one load sequence, then a slow spotlight. Static layout above is complete without it. */
+@keyframes rise { from { transform: translateY(105%); } to { transform: none; } }
+@keyframes draw { from { transform: scaleX(0); } to { transform: none; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes press { 0% { transform: scale(1.3) rotate(-14deg); opacity: 0; } 60% { opacity: 1; } 100% { transform: scale(1) rotate(-8deg); } }
+@keyframes spot { 0%, 22% { color: var(--accent); } 26%, 100% { color: var(--ink); } }
+
+.opening__line > span { animation: rise 900ms var(--ease) both; }
+.opening__line--second > span { animation-delay: 120ms; }
+.opening__rule { animation: draw 1000ms var(--ease) 400ms both; }
+.seal { animation: press 500ms var(--ease) 1000ms both; }
+.opening__tagline, .opening__facts { animation: fade 800ms ease 1100ms both; }
+.opening__spot { animation: fade 800ms ease 1300ms both; }
+.opening__spot li { animation: spot 16s linear 2; }   /* two passes, then it rests */
+.opening__spot li:nth-child(1) { animation-delay: 2.5s; }
+.opening__spot li:nth-child(2) { animation-delay: 6.5s; }
+.opening__spot li:nth-child(3) { animation-delay: 10.5s; }
+.opening__spot li:nth-child(4) { animation-delay: 14.5s; }
+
+/* Hero: desktop */
+@media (min-width: 900px) {
+  .opening__title { font-size: clamp(6rem, 12vw, 11rem); }
+  .opening__line--second { margin-left: 22%; }
+  .seal { width: 104px; height: 104px; font-size: 1.75rem; }
+  .opening__foot { grid-template-columns: 5fr 7fr; align-items: end; gap: var(--space-5); }
+  .opening__facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+  .opening__facts div { display: block; }
+  .opening__facts dd { font-size: 1.25rem; }
+}
+
+/* 6. INTRODUCTION ------------------------------------------ */
+.statement {
+  font-family: var(--font-display);
+  font-size: var(--fs-statement); line-height: 1.2;
+  padding-bottom: var(--space-3);
+  background: linear-gradient(var(--accent), var(--accent)) no-repeat 0 100% / 100% 2px;
+  max-width: none;
+}
+.introduction .section__body { max-width: 28em; }
+
+/* 7. RANGE (achievements as an editorial ledger) ------------ */
+/* Structure: .ledger > .group (title in left rail) > .entries > .entry (number, what, result). */
+.range { padding-bottom: 0; }
+.range .section__inner { margin-bottom: var(--space-5); }
+.range .section__title { font-size: var(--fs-statement); }
+
+.ledger { counter-reset: entry; --rule-soft: rgba(21, 19, 15, 0.22); }
+.group {
+  display: grid; gap: var(--space-3);
+  max-width: 1320px; margin-inline: auto;
+  padding: var(--space-4) var(--gutter) var(--space-5);
+  position: relative;
+}
+.group::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--ink); transform-origin: left; }
+.group:last-child { max-width: none; border-bottom: 1px solid var(--ink); }
+.group__title { font-family: var(--font-display); font-weight: 400; font-size: var(--fs-title); line-height: 1.1; }
+.group__title span { display: block; font-size: 0.8em; color: var(--text-2); }
+
+.entry {
+  counter-increment: entry;
+  display: grid; grid-template-columns: 2.25rem 1fr; column-gap: var(--space-2);
+  padding-block: var(--space-3);
+  border-top: 1px solid var(--rule-soft);
+  transition: opacity 220ms var(--ease);
+}
+.entry:first-child { border-top: 0; padding-top: 0; }
+.entry__num { grid-row: 1 / 3; padding-top: 0.9em; font-family: var(--font-label); font-size: var(--fs-label); color: var(--text-2); transition: color 220ms var(--ease); }
+.entry__num::before { content: counter(entry, decimal-leading-zero); }
+.entry__what { font-family: var(--font-display); font-size: clamp(2rem, 9vw, 3.25rem); line-height: 1.05; letter-spacing: -0.02em; transition: transform 220ms var(--ease); }
+.entry__result { font-family: var(--font-display); font-style: italic; font-size: 1.125rem; color: var(--text-2); }
+.entry--lead .entry__what { font-size: clamp(2.75rem, 12vw, 4.5rem); }   /* the one international medal leads */
+
+
+/* Range: desktop */
+@media (min-width: 900px) {
+  .group { grid-template-columns: 2fr 8fr; gap: var(--space-4); }
+  .group__title { position: sticky; top: 88px; align-self: start; }
+  .entry { grid-template-columns: 3rem minmax(0, 1fr) minmax(12ch, 20ch); align-items: baseline; padding-block: var(--space-4); }
+  .entry__num { grid-row: auto; padding-top: 0; }
+  .entry__what { font-size: clamp(3rem, 5.6vw, 4.5rem); }
+  .entry--lead .entry__what { font-size: clamp(4rem, 8vw, 7rem); }
+  .entry__result { text-align: right; }
+  /* Stepped indent: entries drift right within a group, like moving across a stage */
+  .entry:nth-child(2) .entry__what { padding-left: var(--space-4); }
+  .entry:nth-child(3) .entry__what { padding-left: calc(var(--space-4) * 2); }
+}
+
+/* 8. AUDIENCE ---------------------------------------------- */
+.audience { padding-top: var(--section-gap); }
+.audience__fact { font-family: var(--font-display); font-size: var(--fs-statement); line-height: 1.2; }
+.audience__lede { color: var(--text-2); max-width: 46ch; }
+
+/* Thread: five words tying marketing and PRM to the rest of the page. Plain rules, no boxes. */
+.audience__thread { display: grid; margin-top: var(--space-3); }
+.thread__item { display: grid; align-content: start; gap: 4px; padding-block: var(--space-2) var(--space-3); border-top: 1px solid var(--ink); transition: opacity 220ms var(--ease); }
+.thread__item:first-child { border-top: 2px solid var(--accent); }   /* marketing and PRM is the subject */
+.thread__item dt {
+  justify-self: start;
+  font-family: var(--font-display); font-style: italic; font-size: clamp(1.375rem, 2.2vw, 1.75rem); line-height: 1.15;
+  background: linear-gradient(var(--accent), var(--accent)) no-repeat 0 100% / 0 2px;
+  transition: background-size 220ms var(--ease);
+}
+.thread__item dd { font-size: 0.9375rem; color: var(--text-2); }
+
+@media (min-width: 900px) {
+  .audience__thread { grid-column: 2; grid-template-columns: repeat(5, 1fr); gap: var(--space-3); margin-top: var(--space-4); }
+}
+
+/* 8b. CONNECTION (through-line) ----------------------------- */
+/* One continuous line; four themed zones; eight stops. Horizontal on desktop, vertical on mobile. */
+.connection__lede { color: var(--text-2); max-width: 46ch; }
+.thread { grid-column: 1 / -1; margin: var(--space-4) 0 0 4px; border-left: 1px solid var(--ink); }
+.thread__zone { padding: 0 0 var(--space-4) var(--space-3); transition: opacity 220ms var(--ease); }
+.thread__theme { margin-bottom: var(--space-2); font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(1.5rem, 3vw, 2.5rem); line-height: 1.1; }
+.thread__stops { display: grid; gap: var(--space-2); }
+.thread__stop { position: relative; font-family: var(--font-display); font-size: clamp(1.125rem, 1.6vw, 1.5rem); line-height: 1.2; }
+.thread__stop::before {           /* square marker sitting on the line */
+  content: ""; position: absolute; left: calc(-1 * var(--space-3) - 5px); top: 0.4em;
+  width: 9px; height: 9px; background: var(--ink); transition: background 220ms var(--ease);
+}
+.thread__zone:last-child .thread__stop::before { background: var(--accent); }   /* where she is now */
+
+@media (min-width: 900px) {
+  .thread { display: flex; margin: var(--space-5) 0 0; border-left: 0; view-timeline: --thread block; }
+  .thread__zone { flex: 1; padding: 0; }
+  .thread__zone--wide { flex: 3; }
+  .thread__theme { padding-right: var(--space-2); }
+  .thread__stops { position: relative; display: flex; gap: 0; }
+  .thread__stops::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--ink); transform-origin: left; }
+  .thread__stop { flex: 1; padding: var(--space-3) var(--space-2) 0 0; }
+  .thread__stop::before { left: 0; top: -4px; }
+}
+
+/* Scroll-driven draw (progressive enhancement): the line draws left to right as it enters view */
+@keyframes drawline { from { transform: scaleX(0); } to { transform: none; } }
+@supports (animation-timeline: view()) {
+  @media (min-width: 900px) {
+    .thread__stops::before { animation: drawline linear both; animation-timeline: --thread; animation-range: entry 10% entry 60%; }
+    .thread__zone:nth-child(2) .thread__stops::before { animation-range: entry 25% entry 75%; }
+    .thread__zone:nth-child(3) .thread__stops::before { animation-range: entry 40% entry 90%; }
+    .thread__zone:nth-child(4) .thread__stops::before { animation-range: entry 55% entry 100%; }
+  }
+}
+
+/* 9. BUILD (dark chapter) ---------------------------------- */
+.build, .close { background: var(--ink); color: var(--paper); }
+.build { border-top: 1px solid var(--accent); }
+
+/* Technology: a status list. Solid rule = knows, dashed = developing. Mono names contrast with the serif achievements. */
+.build .section__body { max-width: none; gap: var(--space-4); }
+.build__lede { max-width: 22em; font-family: var(--font-display); font-size: var(--fs-statement); line-height: 1.2; }
+.stack { display: grid; }
+.stack__row {
+  display: grid; grid-template-columns: 1fr auto; column-gap: var(--space-2); align-items: baseline;
+  padding-block: var(--space-3);
+  border-top: 1px solid #6b655a;
+}
+.stack__row:last-child { border-bottom: 1px dashed #6b655a; }
+.stack__row--learning { border-top: 1px dashed #E2553F; }
+.stack__row--next { border-top: 1px dashed #6b655a; }
+.stack__name { font-family: var(--font-label); font-size: clamp(1.75rem, 4vw, 3rem); letter-spacing: -0.02em; line-height: 1.1; transition: transform 220ms var(--ease); }
+.stack__state { font-family: var(--font-display); font-style: italic; font-size: 1.25rem; color: #A39C8F; transition: color 220ms var(--ease); }
+.stack__note { grid-column: 1 / -1; margin-top: 4px; color: #A39C8F; }
+.stack__row--learning .stack__state, .stack__row--learning:hover .stack__state { color: #E2553F; }
+
+/* The one moving part: a cursor after "Java", because it is still being typed */
+@keyframes blink { 50% { opacity: 0; } }
+.stack__row--learning .stack__name::after {
+  content: ""; display: inline-block; width: 0.5ch; height: 0.85em; margin-left: 0.25em;
+  background: #E2553F; vertical-align: -0.08em;
+  animation: blink 1.1s steps(1) 20;   /* about 20 blinks, then a steady cursor */
+}
+
+@media (min-width: 900px) {
+  .stack__row { grid-template-columns: 5fr 2fr 5fr; column-gap: var(--space-3); padding-block: var(--space-4); }
+  .stack__note { grid-column: auto; margin-top: 0; }
+}
+.build .section__label, .close .section__label { color: #A39C8F; }
+.build :focus-visible, .close :focus-visible { outline-color: #E2553F; }
+
+/* 10. CLOSE ------------------------------------------------ */
+.close { padding-block: 0 var(--section-gap); }
+.close .section__inner { border-top: 1px solid #3a362f; padding-top: var(--section-gap); }
+.close__links { display: grid; gap: var(--space-2); }
+.close__link {
+  display: inline-block; padding-block: 4px;
+  font-family: var(--font-display); font-size: var(--fs-discipline); line-height: 1.05;
+  background-image: linear-gradient(#E2553F, #E2553F);
+}
+.close__link small { font-family: var(--font-label); font-size: var(--fs-label); letter-spacing: 0.14em; text-transform: uppercase; color: #A39C8F; }
+.close__link.is-placeholder { color: #A39C8F; }   /* remove the class when a real link is added */
+.close__note { color: #A39C8F; }
+
+/* 11. MOTION: the load sequence lives in section 5. Scroll, hover and focus behaviour lives here. */
+
+/* Scroll-driven draws: progressive enhancement. Without support, the rules are simply already drawn. */
+@keyframes underline { from { background-size: 0 2px; } to { background-size: 100% 2px; } }
+@supports (animation-timeline: view()) {
+  .statement { animation: underline linear both; animation-timeline: view(); animation-range: entry 10% entry 90%; }
+  .group { view-timeline: --group block; }
+  .group::before { animation: drawline linear both; animation-timeline: --group; animation-range: entry 0% entry 40%; }
+}
+
+/* Hover-only feedback: touch screens would leave it stuck after a tap, so it is limited to real pointers */
+@media (hover: hover) {
+  .site-nav a:hover, .close__link:hover { background-size: 100% 2px; }
+  .close__link.is-placeholder:hover { background-size: 0 2px; }           /* a dead link should not look alive */
+  .entry:hover .entry__what { transform: translateX(12px); }
+  .entry:hover .entry__num { color: var(--accent); }
+  .ledger:has(.entry:hover) .entry:not(:hover) { opacity: 0.3; }
+  .thread__item:hover dt { background-size: 100% 2px; }
+  .audience__thread:has(.thread__item:hover) .thread__item:not(:hover) { opacity: 0.4; }
+  .thread:has(.thread__zone:hover) .thread__zone:not(:hover) { opacity: 0.35; }
+  .thread__zone:hover .thread__stop::before { background: var(--accent); }
+  .stack__row:hover .stack__name { transform: translateX(8px); }
+  .stack__row:hover .stack__state { color: var(--paper); }
+  .stack__row--learning:hover .stack__state { color: #E2553F; }
+}
+.close__link.is-placeholder { cursor: default; }
+.close__link.is-placeholder:focus-visible { background-size: 0 2px; }      /* focus ring still shows */
+
+/* Reduced motion: no animation, no movement, no smooth scroll. Colour, underline and dimming feedback stays (instant). */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .entry:hover .entry__what, .stack__row:hover .stack__name { transform: none !important; }
+}
+
+/* 12. LAYOUT: MOBILE FIRST, THEN DESKTOP ------------------- */
+@media (min-width: 900px) {
+  :root { --gutter: var(--space-5); }
+
+  /* Left rail for labels, content to the right */
+  .section__inner { grid-template-columns: 2fr 8fr; gap: var(--space-4); }
+  .section__label { padding-top: 0.6em; }
+
+
+  /* Asymmetry: statement leaves the right third empty */
+  .introduction .section__body { max-width: 32em; }
+
+}
